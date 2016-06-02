@@ -15,6 +15,7 @@ public class Ball extends BasicObject {
         basicObjectDrawer = new BasicObjectDrawer(this, Color.MAGENTA);
         position.x = x;
         position.y = y;
+        drag = 10f;
     }
 
     @Override
@@ -34,12 +35,6 @@ public class Ball extends BasicObject {
         vector.magnitude *= .7;
         owner = id;
         basicObjectDrawer.setColor(color);
-    }
-
-    @Override
-    public void update() {
-        super.update();
-        getVector().magnitude *= .9f;
     }
 
     public String getOwner() {

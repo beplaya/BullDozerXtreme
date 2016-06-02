@@ -12,7 +12,7 @@ public abstract class BasicObject {
     public final String id;
     PointF position = new PointF();
     float speed = .1f;
-
+    float drag = 0f;
     float hitRadius = 10;
     Target target;
 
@@ -29,20 +29,27 @@ public abstract class BasicObject {
     public void update() {
         if (target != null) {
             vector = target.getVector(PlayField.getAbsolutePosition(getPosition()), speed);
+            target = null;
+        }
+        int offset = 2;
+        if (position.x <= offset || position.y <= offset || position.x >= 100 - offset || position.y >= 100 - offset) {
+            target = new Target(50, 50);
+            getVector().magnitude *= 1.001f;
         }
         position.x += vector.getVelocityX();
         position.y += vector.getVelocityY();
+
+        getVector().magnitude *= 1 - (drag / 100f);
     }
+
 
     public void onWallCollide(Collisioner.Wall wall) {
         target = null;
         if (wall.equals(Collisioner.Wall.TOP) || wall.equals(Collisioner.Wall.BOTTOM)) {
-            vector.position.x *= -1;
             vector.position.y *= -1;
         } else if (wall.equals(Collisioner.Wall.LEFT) || wall.equals(Collisioner.Wall.RIGHT)) {
             vector.position.x *= -1;
         }
-        vector.magnitude *= .99f;
     }
 
     public abstract BasicObjectDrawer getBasicObjectDrawer();

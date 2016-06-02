@@ -15,6 +15,7 @@ public class BullDozer extends BasicObject {
         hitRadius = 40;
         position.x = 100;
         position.y = 200;
+        drag = .1f;
     }
 
     @Override
@@ -24,7 +25,7 @@ public class BullDozer extends BasicObject {
 
     @Override
     public void onCollide(BasicObject basicObject) {
-        if (basicObject instanceof Ball){
+        if (basicObject instanceof Ball) {
             Ball ball = (Ball) basicObject;
             ball.onHitByDozer(id, vector, drawer.getColor());
         }
