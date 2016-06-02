@@ -78,9 +78,9 @@ public class PlayVm implements TickerTimer.TickerTimerListener, PlayField.IPlayC
                 bo.update();
             }
 
+            collisioner.update();
             SocketManager.getInstance().sendPositionAndVector(player.getPosition(), player.getVector());
             if (SocketManager.getRoom().getPlayerNumber() == 0) {
-                collisioner.update();
                 for (Ball b : balls) {
                     SocketManager.getInstance().sendBallPosition(b);
                 }
