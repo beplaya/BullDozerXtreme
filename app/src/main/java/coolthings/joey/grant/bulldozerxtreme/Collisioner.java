@@ -12,6 +12,9 @@ public class Collisioner {
 
     private PlayField.IPlayController playController;
 
+    public enum Wall {
+        LEFT, TOP, RIGHT, BOTTOM;
+    }
 
     public Collisioner(PlayField.IPlayController playController) {
         this.playController = playController;
@@ -20,6 +23,10 @@ public class Collisioner {
     public void update() {
         List<BasicObject> bos = playController.getAll();
         for (int i = 0; i < bos.size(); i++) {
+            Wall wall = detectWall(bos.get(i));
+            if (wall != null) {
+                bos.get(i).onWallCollide(wall);
+            }
             for (int j = 0; j < bos.size(); j++) {
                 if (i != j) {
                     if (doesCollide(bos.get(i), bos.get(j))) {
@@ -29,6 +36,22 @@ public class Collisioner {
                 }
             }
         }
+
+    }
+
+    private Wall detectWall(BasicObject basicObject) {
+        PointF percentPosition = basicObject.getPosition();
+        float offset = 5f;
+        if (percentPosition.x < offset) {
+            return Wall.LEFT;
+        } else if (percentPosition.y < offset) {
+            return Wall.TOP;
+        } else if (percentPosition.x > 100 - offset) {
+            return Wall.RIGHT;
+        } else if (percentPosition.y > 100 - offset) {
+            return Wall.BOTTOM;
+        }
+        return null;
     }
 
     private boolean doesCollide(BasicObject a, BasicObject b) {

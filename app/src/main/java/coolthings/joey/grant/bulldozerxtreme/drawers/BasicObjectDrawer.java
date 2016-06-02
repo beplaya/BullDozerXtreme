@@ -1,7 +1,6 @@
 package coolthings.joey.grant.bulldozerxtreme.drawers;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 
@@ -16,12 +15,10 @@ public class BasicObjectDrawer {
     public BasicObjectDrawer(BasicObject basicObject, int color) {
         this.basicObject = basicObject;
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(Color.WHITE);
+        paint.setColor(color);
     }
 
     public void onDraw(Canvas canvas) {
-        paint.setColor(Color.WHITE);
-
         if (basicObject != null) {
             PointF absPosition = PlayField.getAbsolutePosition(basicObject.getPosition());
             canvas.drawCircle(absPosition.x, absPosition.y, basicObject.getHitRadius(), paint);

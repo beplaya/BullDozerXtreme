@@ -2,6 +2,7 @@ package coolthings.joey.grant.bulldozerxtreme.objects;
 
 import android.graphics.PointF;
 
+import coolthings.joey.grant.bulldozerxtreme.Collisioner;
 import coolthings.joey.grant.bulldozerxtreme.PlayField;
 import coolthings.joey.grant.bulldozerxtreme.Vector;
 import coolthings.joey.grant.bulldozerxtreme.drawers.BasicObjectDrawer;
@@ -31,6 +32,17 @@ public abstract class BasicObject {
         }
         position.x += vector.getVelocityX();
         position.y += vector.getVelocityY();
+    }
+
+    public void onWallCollide(Collisioner.Wall wall) {
+        target = null;
+        if (wall.equals(Collisioner.Wall.TOP) || wall.equals(Collisioner.Wall.BOTTOM)) {
+            vector.position.x *= -1;
+            vector.position.y *= -1;
+        } else if (wall.equals(Collisioner.Wall.LEFT) || wall.equals(Collisioner.Wall.RIGHT)) {
+            vector.position.x *= -1;
+        }
+        vector.magnitude *= .99f;
     }
 
     public abstract BasicObjectDrawer getBasicObjectDrawer();
