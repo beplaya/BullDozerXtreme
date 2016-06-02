@@ -2,7 +2,6 @@ package coolthings.joey.grant.bulldozerxtreme.objects;
 
 import android.graphics.Color;
 
-import coolthings.joey.grant.bulldozerxtreme.PlayField;
 import coolthings.joey.grant.bulldozerxtreme.Vector;
 import coolthings.joey.grant.bulldozerxtreme.drawers.BasicObjectDrawer;
 
@@ -11,11 +10,11 @@ public class Ball extends BasicObject {
     private BasicObjectDrawer basicObjectDrawer;
     private String owner = "?";
 
-    public Ball(int id) {
+    public Ball(int id, float x, float y) {
         super("ball_" + id);
         basicObjectDrawer = new BasicObjectDrawer(this, Color.MAGENTA);
-        position.x = 100f + PlayField.random.nextFloat() * 400f;
-        position.y = 200f + PlayField.random.nextFloat() * 800f;
+        position.x = x;
+        position.y = y;
     }
 
     @Override

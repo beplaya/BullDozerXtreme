@@ -45,11 +45,11 @@ public class PlayVm implements TickerTimer.TickerTimerListener, PlayField.IPlayC
         basicObjects.add(otherPlayer);
         balls = new ArrayList<>();
 
-        balls.add(new Ball(1));
-        balls.add(new Ball(2));
-        balls.add(new Ball(3));
-        balls.add(new Ball(4));
-        balls.add(new Ball(5));
+        balls.add(new Ball(1, 20, 50));
+        balls.add(new Ball(2, 40, 50));
+        balls.add(new Ball(3, 50, 50));
+        balls.add(new Ball(4, 60, 50));
+        balls.add(new Ball(5, 80, 50));
         basicObjects.addAll(balls);
         SocketManager.registerListener(new MultiplayManager(this));
         SocketManager.connect(activity.getApplicationContext());
@@ -101,11 +101,11 @@ public class PlayVm implements TickerTimer.TickerTimerListener, PlayField.IPlayC
     public void onJoinedRoom() {
         int playerNumber = SocketManager.getRoom().getPlayerNumber();
         if (playerNumber == 0) {
-            player.setPosition(new PointF(400, 700));
-            otherPlayer.setPosition(new PointF(400, 100));
+            player.setPosition(new PointF(50, 80));
+            otherPlayer.setPosition(new PointF(50, 20));
         } else if (playerNumber == 1) {
-            player.setPosition(new PointF(400, 100));
-            otherPlayer.setPosition(new PointF(400, 700));
+            player.setPosition(new PointF(50, 20));
+            otherPlayer.setPosition(new PointF(50, 80));
         }
         toast("player number: " + playerNumber + "\nRoom: " + SocketManager.getRoom().id);
     }

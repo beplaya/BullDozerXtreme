@@ -3,6 +3,8 @@ package coolthings.joey.grant.bulldozerxtreme;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Point;
+import android.graphics.PointF;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.RelativeLayout;
@@ -16,6 +18,8 @@ import coolthings.joey.grant.bulldozerxtreme.objects.Target;
 public class PlayField extends RelativeLayout {
 
     public static final Random random = new Random(123908);
+
+    private static Point dimensions = new Point(1, 1);
 
     public interface IPlayController {
         List<BasicObject> getAll();
@@ -51,6 +55,10 @@ public class PlayField extends RelativeLayout {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        if (dimensions.x == 1) {
+            dimensions.x = canvas.getWidth();
+            dimensions.y = canvas.getHeight();
+        }
         canvas.drawColor(Color.BLACK);
         if (playController != null) {
             for (BasicObject bo : playController.getAll()) {
@@ -58,4 +66,9 @@ public class PlayField extends RelativeLayout {
             }
         }
     }
+
+    public static PointF getAbsolutePosition(PointF position) {
+        return new PointF(dimensions.x * (position.x / 100f), dimensions.y * (position.y / 100f));
+    }
+
 }

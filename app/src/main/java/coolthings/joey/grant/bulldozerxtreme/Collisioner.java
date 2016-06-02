@@ -32,8 +32,8 @@ public class Collisioner {
     }
 
     private boolean doesCollide(BasicObject a, BasicObject b) {
-        PointF ap = a.getPosition();
-        PointF bp = b.getPosition();
+        PointF ap = PlayField.getAbsolutePosition(a.getPosition());
+        PointF bp = PlayField.getAbsolutePosition(b.getPosition());
         float dx = Math.abs(ap.x - bp.x);
         float dy = Math.abs(ap.y - bp.y);
         float h = (float) Math.sqrt((dx * dx) + (dy * dy));

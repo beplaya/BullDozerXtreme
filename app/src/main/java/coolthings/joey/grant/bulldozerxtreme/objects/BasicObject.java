@@ -2,6 +2,7 @@ package coolthings.joey.grant.bulldozerxtreme.objects;
 
 import android.graphics.PointF;
 
+import coolthings.joey.grant.bulldozerxtreme.PlayField;
 import coolthings.joey.grant.bulldozerxtreme.Vector;
 import coolthings.joey.grant.bulldozerxtreme.drawers.BasicObjectDrawer;
 
@@ -9,7 +10,7 @@ public abstract class BasicObject {
 
     public final String id;
     PointF position = new PointF();
-    float speed = 1;
+    float speed = .1f;
 
     float hitRadius = 10;
     Target target;
@@ -26,7 +27,7 @@ public abstract class BasicObject {
 
     public void update() {
         if (target != null) {
-            vector = target.getVector(position, speed);
+            vector = target.getVector(PlayField.getAbsolutePosition(getPosition()), speed);
         }
         position.x += vector.getVelocityX();
         position.y += vector.getVelocityY();
@@ -63,5 +64,6 @@ public abstract class BasicObject {
     public void setVector(Vector vector) {
         this.vector = vector;
     }
+
 
 }

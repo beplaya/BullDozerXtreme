@@ -11,7 +11,7 @@ public class BullDozer extends BasicObject {
     public BullDozer(String id) {
         super(id);
         drawer = new BasicObjectDrawer(this, Color.WHITE);
-        speed = 3;
+        speed = 1;
         hitRadius = 40;
         position.x = 100;
         position.y = 200;

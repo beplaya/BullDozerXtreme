@@ -13,13 +13,13 @@ public class Target {
         position.y = y;
     }
 
-    public Vector getVector(PointF position, float speed) {
+    public Vector getVector(PointF absPosition, float speed) {
         Vector vector = new Vector();
 
 
-        float dx = this.position.x - position.x;
+        float dx = this.position.x - absPosition.x;
 
-        float dy = this.position.y - position.y;
+        float dy = this.position.y - absPosition.y;
 
         vector.angle = Math.atan(dy / dx);
         vector.position.x = (float) Math.cos(vector.angle);
