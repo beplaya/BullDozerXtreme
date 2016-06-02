@@ -44,7 +44,7 @@ public class MultiplayManager implements SocketManager.ISocketListener {
         int start = 2;
         PointF position = getPosition(start, split);
         Vector vector = getVector(start, split);
-        String owner = getOwner(start, split);
+        int owner = getOwner(start, split);
         playVm.onReceiveBallVectorAndPosition(ballId, position, vector, owner);
     }
 
@@ -75,7 +75,7 @@ public class MultiplayManager implements SocketManager.ISocketListener {
         return position;
     }
 
-    private String getOwner(int start, String[] split) {
-        return split[start + 6];
+    private int getOwner(int start, String[] split) {
+        return Integer.parseInt(split[start + 6]);
     }
 }

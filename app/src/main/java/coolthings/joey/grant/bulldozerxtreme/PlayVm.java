@@ -32,8 +32,8 @@ public class PlayVm implements TickerTimer.TickerTimerListener, PlayField.IPlayC
         tickerTimer.registerNewListener(this);
         playField = (PlayField) activity.findViewById(R.id.play_field);
         playField.setPlayController(this);
-        player = new BullDozer("p");
-        otherPlayer = new BullDozer("op");
+        player = new BullDozer(BullDozer.LOCAL_PLAYER);
+        otherPlayer = new BullDozer(BullDozer.REMOTE_PLAYER);
 
         otherPlayer.getBasicObjectDrawer().setColor(Color.CYAN);
         collisioner = new Collisioner(this);
@@ -124,16 +124,16 @@ public class PlayVm implements TickerTimer.TickerTimerListener, PlayField.IPlayC
         otherPlayer.setVector(vector);
     }
 
-    public void onReceiveBallVectorAndPosition(String ballId, PointF position, Vector vector, String owner) {
+    public void onReceiveBallVectorAndPosition(String ballId, PointF position, Vector vector, int ownerNumber) {
         if (SocketManager.getRoom().getPlayerNumber() != 0) {
             for (Ball b : balls) {
                 if (ballId.equals(b.id)) {
                     b.setPosition(position);
                     b.setVector(vector);
-                    b.setOwner(owner);
-                    if(owner.equals(player.id)){
+                    b.setOwner(ownerNumber);
+                    if (ownerNumber == SocketManager.getRoom().getPlayerNumber()) {
                         b.getBasicObjectDrawer().setColor(player.getBasicObjectDrawer().getColor());
-                    }else if( owner.equals(otherPlayer.id)){
+                    } else {
                         b.getBasicObjectDrawer().setColor(otherPlayer.getBasicObjectDrawer().getColor());
                     }
                     return;

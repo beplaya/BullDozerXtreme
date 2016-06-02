@@ -8,7 +8,7 @@ import coolthings.joey.grant.bulldozerxtreme.drawers.BasicObjectDrawer;
 public class Ball extends BasicObject {
 
     private BasicObjectDrawer basicObjectDrawer;
-    private String owner = "?";
+    private int owner = -1;
 
     public Ball(int id, float x, float y) {
         super("ball_" + id);
@@ -27,21 +27,21 @@ public class Ball extends BasicObject {
     public void onCollide(BasicObject basicObject) {
     }
 
-    public void onHitByDozer(String id, Vector vector, int color) {
+    public void onHitByDozer(int owner, Vector vector, int color) {
         getVector().angle = vector.angle;
         getVector().position.x = vector.position.x;
         getVector().position.y = vector.position.y;
         getVector().magnitude = vector.magnitude * 4;
         vector.magnitude *= .7;
-        owner = id;
+        this.owner = owner;
         basicObjectDrawer.setColor(color);
     }
 
-    public String getOwner() {
+    public int getOwner() {
         return owner;
     }
 
-    public void setOwner(String owner) {
+    public void setOwner(int owner) {
         this.owner = owner;
     }
 }

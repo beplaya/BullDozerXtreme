@@ -41,7 +41,7 @@ public class Collisioner {
 
     private Wall detectWall(BasicObject basicObject) {
         PointF percentPosition = basicObject.getPosition();
-        float offset = 2f;
+        float offset = 5f;
         if (percentPosition.x < offset) {
             return Wall.LEFT;
         } else if (percentPosition.y < offset) {

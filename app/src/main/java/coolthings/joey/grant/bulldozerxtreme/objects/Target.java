@@ -8,6 +8,10 @@ public class Target {
 
     PointF position = new PointF();
 
+    public Target(PointF absolutePosition) {
+        this(absolutePosition.x, absolutePosition.y);
+    }
+
     public Target(float x, float y) {
         position.x = x;
         position.y = y;

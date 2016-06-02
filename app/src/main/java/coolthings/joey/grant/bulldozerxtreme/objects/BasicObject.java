@@ -27,17 +27,27 @@ public abstract class BasicObject {
     }
 
     public void update() {
-        if (target != null) {
+        float boostVX = 1;
+        float boostVY = 1;
+        if (target == null) {
+            float offset = 5f;
+            if (position.x < offset) {
+                boostVX = 1.1f;
+            } else if (position.x > 100 - offset) {
+                boostVX = .9f;
+            }
+            if (position.y < offset) {
+                boostVY = 1.1f;
+            } else if (position.y > 100 - offset) {
+                boostVY = .9f;
+            }
+        } else {
             vector = target.getVector(PlayField.getAbsolutePosition(getPosition()), speed);
             target = null;
         }
-        int offset = 2;
-        if (position.x <= offset || position.y <= offset || position.x >= 100 - offset || position.y >= 100 - offset) {
-            target = new Target(50, 50);
-            getVector().magnitude *= 1.001f;
-        }
-        position.x += vector.getVelocityX();
-        position.y += vector.getVelocityY();
+
+        position.x += vector.getVelocityX() * boostVX;
+        position.y += vector.getVelocityY() * boostVY;
 
         getVector().magnitude *= 1 - (drag / 100f);
     }
