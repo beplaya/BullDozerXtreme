@@ -37,15 +37,17 @@ public class MultiplayManager implements SocketManager.ISocketListener {
     }
 
     private void onReceiveBallVectorAndPosition(Object o) {
-        //roomid, ballid, position.x, position.y, vector.magnitude, vector.angle, vector.position.x, vector.position.y
+        //roomid, ballid, position.x, position.y, vector.magnitude, vector.angle, vector.position.x, vector.position.y, owner
         String csv = o.toString();
         String[] split = csv.split(",");
         String ballId = split[1];
         int start = 2;
         PointF position = getPosition(start, split);
         Vector vector = getVector(start, split);
-        playVm.onReceiveBallVectorAndPosition(ballId, position, vector);
+        String owner = getOwner(start, split);
+        playVm.onReceiveBallVectorAndPosition(ballId, position, vector, owner);
     }
+
 
     private void onReceiveOtherPlayerVectorAndPosition(Object o) {
         //roomid, position.x, position.y, vector.magnitude, vector.angle, vector.position.x, vector.position.y
@@ -59,16 +61,21 @@ public class MultiplayManager implements SocketManager.ISocketListener {
 
     private Vector getVector(int start, String[] split) {
         Vector vector = new Vector();
-        vector.magnitude = Float.parseFloat(split[start+2]);
-        vector.angle = Float.parseFloat(split[start+3]);
-        vector.position.x = Float.parseFloat(split[start+4]);
-        vector.position.y = Float.parseFloat(split[start+5]);
+        vector.magnitude = Float.parseFloat(split[start + 2]);
+        vector.angle = Float.parseFloat(split[start + 3]);
+        vector.position.x = Float.parseFloat(split[start + 4]);
+        vector.position.y = Float.parseFloat(split[start + 5]);
         return vector;
     }
+
     private PointF getPosition(int start, String[] split) {
         PointF position = new PointF();
         position.x = Float.parseFloat(split[start]);
-        position.y = Float.parseFloat(split[start+1]);
+        position.y = Float.parseFloat(split[start + 1]);
         return position;
+    }
+
+    private String getOwner(int start, String[] split) {
+        return split[start + 6];
     }
 }

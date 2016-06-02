@@ -9,7 +9,7 @@ import coolthings.joey.grant.bulldozerxtreme.drawers.BasicObjectDrawer;
 public class Ball extends BasicObject {
 
     private BasicObjectDrawer basicObjectDrawer;
-    private String owner = null;
+    private String owner = "?";
 
     public Ball(int id) {
         super("ball_" + id);

@@ -234,7 +234,7 @@ public class SocketManager {
         PointF position = ball.getPosition();
         Vector vector = ball.getVector();
         sendCommand(SEND_BALL_VECTOR_POSITION, room.id, ball.id, position.x, position.y,
-                vector.magnitude, vector.angle, vector.position.x, vector.position.y);
+                vector.magnitude, vector.angle, vector.position.x, vector.position.y, ball.getOwner());
     }
 
     public void sendCommand(Events event, Object... args) {

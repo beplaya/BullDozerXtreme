@@ -124,12 +124,18 @@ public class PlayVm implements TickerTimer.TickerTimerListener, PlayField.IPlayC
         otherPlayer.setVector(vector);
     }
 
-    public void onReceiveBallVectorAndPosition(String ballId, PointF position, Vector vector) {
+    public void onReceiveBallVectorAndPosition(String ballId, PointF position, Vector vector, String owner) {
         if (SocketManager.getRoom().getPlayerNumber() != 0) {
             for (Ball b : balls) {
                 if (ballId.equals(b.id)) {
                     b.setPosition(position);
                     b.setVector(vector);
+                    b.setOwner(owner);
+                    if(owner.equals(player.id)){
+                        b.getBasicObjectDrawer().setColor(player.getBasicObjectDrawer().getColor());
+                    }else if( owner.equals(otherPlayer.id)){
+                        b.getBasicObjectDrawer().setColor(otherPlayer.getBasicObjectDrawer().getColor());
+                    }
                     return;
                 }
             }
