@@ -26,7 +26,7 @@ public class BullDozer extends BasicObject {
     public void onCollide(BasicObject basicObject) {
         if (basicObject instanceof Ball){
             Ball ball = (Ball) basicObject;
-            ball.onHitByDozer(getVector());
+            ball.onHitByDozer(id, vector, drawer.getColor());
         }
     }
 }

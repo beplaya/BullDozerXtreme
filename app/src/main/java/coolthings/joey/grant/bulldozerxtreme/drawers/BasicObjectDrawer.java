@@ -27,4 +27,8 @@ public class BasicObjectDrawer {
     public void setColor(int color) {
         paint.setColor(color);
     }
+
+    public int getColor() {
+        return paint.getColor();
+    }
 }
